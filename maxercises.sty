@@ -144,15 +144,14 @@
 	    \newcommand{\exitsubproblems}{%
 		\iftoggle{subproblemActive}{%
 		    \setcounter{subprobStoreCounter}{\value{subproblemCounter}}
-		    \endlist \egroup
+		    \end{list}
+		    \togglefalse{subproblemActive}
 		}{}
 	    }
 	    \newcommand{\subproblem}{%
-		\iftoggle{subproblemActive}
-		    {\exitsubproblems}
-		    {\toggletrue{subproblemActive}}
-		\bgroup
-		\list{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
+		\iftoggle{subproblemActive}{\exitsubproblems}{}
+		\toggletrue{subproblemActive}
+		\begin{list}{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
 			\item %
 		}
 	    \noindent {\bf \maxercises@exercisedescription }
@@ -173,20 +172,19 @@
 	    \newcommand{\exitsubproblems}{%
 		\iftoggle{subproblemActive}{%
 		    \setcounter{subprobStoreCounter}{\value{subproblemCounter}}
-		    \endlist \egroup
+		    \end{list}
+		    \togglefalse{subproblemActive}
 		}{}
 	    }
 	    \newcommand{\subproblem}{%
-		\iftoggle{subproblemActive}
-		    {\exitsubproblems}
-		    {\toggletrue{subproblemActive}}
-		\bgroup
-		\list{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
+		\iftoggle{subproblemActive}{\exitsubproblems}{}
+		\toggletrue{subproblemActive}
+		\begin{list}{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
 			\item %
 		}
 	    \noindent {\bf \maxercises@solutiondescription }
 	    }{%
-	    \iftoggle{subproblemActive}{\endlist \egroup}{}
+	    \iftoggle{subproblemActive}{\exitsubproblems}{}
 	    \par
 	    \addvspace{\baselineskip}
 	    \global\settoggle{lastwassolution}{true}

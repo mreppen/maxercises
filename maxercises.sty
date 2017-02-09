@@ -9,7 +9,7 @@
 
 \RequirePackage{lastpage}
 \RequirePackage{fancyhdr}
-\RequirePackage{comment}
+\RequirePackage{versions}
 \RequirePackage{etoolbox}
 
 \newbool{problems}
@@ -68,6 +68,7 @@
 \newcommand{\setcoursename}[1]{
 	\renewcommand{\coursename}{#1}
 }
+
 \newcommand{\setcourseiteration}[1]{
 	\renewcommand{\courseiteration}{#1}
 }
@@ -133,7 +134,7 @@
 \newcounter{subprobStoreCounter}
 \newcounter{subproblemCounter}
 \def\thesubproblemCounter{(\alph{subproblemCounter})}
-\excludecomment{problem}\excludecomment{solution} % this suppresses error from renewenvironment
+\excludeversion{problem}\excludeversion{solution} % this suppresses error from renewenvironment below
 \newcommand{\updatePSEnvironments}{
     \ifbool{problems}{
 	\renewenvironment{problem}{
@@ -161,7 +162,7 @@
 	    \addvspace{\baselineskip}
 	    \global\settoggle{lastwassolution}{false}
 	}
-    }{\excludecomment{problem}}
+    }{\excludeversion{problem}}
 
 
     \ifbool{solutions}{
@@ -189,7 +190,7 @@
 	    \addvspace{\baselineskip}
 	    \global\settoggle{lastwassolution}{true}
 	}
-    }{\excludecomment{solution}}
+    }{\excludeversion{solution}}
 }
 \updatePSEnvironments
 

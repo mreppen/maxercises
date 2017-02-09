@@ -1,0 +1,228 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{maxercises}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[babel=true]{microtype}
+\RequirePackage[textwidth=15cm,textheight=22.2cm]{geometry}
+
+\RequirePackage{lastpage}
+\RequirePackage{fancyhdr}
+\RequirePackage{comment}
+\RequirePackage{etoolbox}
+
+\newbool{problems}
+\newbool{solutions}
+\newbool{exam}
+
+\newcommand{\turnONproblems}{\booltrue{problems}\updatePSEnvironments}
+\newcommand{\turnOFFproblems}{\boolfalse{problems}\updatePSEnvironments}
+\newcommand{\turnONsolutions}{\booltrue{solutions}\updatePSEnvironments}
+\newcommand{\turnOFFsolutions}{\boolfalse{solutions}\updatePSEnvironments}
+
+\DeclareOption{problemsON}{
+	\booltrue{problems}
+}
+
+\DeclareOption{solutionsON}{
+	\booltrue{solutions}
+}
+
+\DeclareOption{problemsOFF}{
+	\setbool{problems}{false}
+}
+
+\DeclareOption{solutionsOFF}{
+	\setbool{solutions}{false}
+}
+
+\newcommand{\setexamname}[1]{}
+\newcommand{\setexamdate}[1]{}
+\DeclareOption{exam}{
+    \newcommand{\examname}{}
+    \renewcommand{\setexamname}[1]{
+	\renewcommand{\examname}{#1}
+    }
+    \newcommand{\examdate}{}
+    \renewcommand{\setexamdate}[1]{
+	\renewcommand{\examdate}{#1}
+    }
+    \setbool{exam}{true}
+}
+
+\ExecuteOptions{problemsON,solutionsON}
+\ProcessOptions\relax
+
+
+
+
+\newcommand{\coursename}{}
+\newcommand{\courseiteration}{}
+\newcommand{\sheetnumber}{}
+\newcommand{\lastupdated}{}
+\newcommand{\lecturer}{}
+\newcommand{\assistant}{}
+\newcommand{\institution}{}
+
+\newcommand{\setcoursename}[1]{
+	\renewcommand{\coursename}{#1}
+}
+\newcommand{\setcourseiteration}[1]{
+	\renewcommand{\courseiteration}{#1}
+}
+
+\newcommand{\setsheetnumber}[1]{
+	\renewcommand{\sheetnumber}{#1}
+}
+
+\newcommand{\setlastupdated}[1]{%
+	\renewcommand{\lastupdated}{#1}%
+}
+
+\newcommand{\setlecturer}[1]{%
+	\renewcommand{\lecturer}{#1}%
+}
+
+\newcommand{\setassistant}[1]{%
+	\renewcommand{\assistant}{#1}%
+}
+
+\newcommand{\setinstitution}[1]{%
+	\renewcommand{\institution}{#1}%
+}
+
+\def\maxercises@title{%
+	\ifdefempty{\sheetnumber}{%
+	    \ifbool{problems}{Exercises}{Solutions}%
+	}{%
+	    \ifbool{problems}{Exercise}{Solution} sheet \sheetnumber%
+	}%
+}
+
+
+\def\maxercises@lastupdatedtext{%
+	\ifdefempty{\lastupdated}{%
+	}{%
+		Updated: \lastupdated%
+	}
+}
+
+% These are the names/descriptions given to each main problem/solution
+\def\maxercises@exercisedescription{%
+    \ifbool{exam}{Problem}{Exercise} %
+	\ifdefempty{\sheetnumber}{}{\sheetnumber.}%
+	\arabic{problemCounter}%
+}
+\def\maxercises@solutiondescription{%
+	Solution %
+	\ifdefempty{\sheetnumber}{}{\sheetnumber.}%
+	\arabic{solutionCounter}%
+}
+
+
+\newtoggle{lastwassolution}
+
+\newcommand{\newpageifno}[1]{\ifbool{#1}{}{\newpage}}
+\newcommand{\newpageifnoproblems}{\newpageifno{problems}}
+\newcommand{\newpageifnosolutions}{\newpageifno{solutions}}
+\newcommand{\skipnewpage}{\togglefalse{lastwassolution}}
+
+\newcounter{problemCounter}
+\newcounter{solutionCounter}
+\newcounter{subprobStoreCounter}
+\newcounter{subproblemCounter}
+\def\thesubproblemCounter{(\alph{subproblemCounter})}
+\excludecomment{problem}\excludecomment{solution} % this suppresses error from renewenvironment
+\newcommand{\updatePSEnvironments}{
+    \ifbool{problems}{
+	\renewenvironment{problem}{
+	    \iftoggle{lastwassolution}{\newpage}{}
+	    \stepcounter{problemCounter}
+	    \setcounter{subprobStoreCounter}{0}
+	    \newtoggle{subproblemActive}
+	    \newcommand{\exitsubproblems}{%
+		\iftoggle{subproblemActive}{%
+		    \setcounter{subprobStoreCounter}{\value{subproblemCounter}}
+		    \endlist \egroup
+		}{}
+	    }
+	    \newcommand{\subproblem}{%
+		\iftoggle{subproblemActive}
+		    {\exitsubproblems}
+		    {\toggletrue{subproblemActive}}
+		\bgroup
+		\list{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
+			\item %
+		}
+	    \noindent {\bf \maxercises@exercisedescription }
+	    }{%
+	    \iftoggle{subproblemActive}{\exitsubproblems}{}
+	    \par
+	    \addvspace{\baselineskip}
+	    \global\settoggle{lastwassolution}{false}
+	}
+    }{\excludecomment{problem}}
+
+
+    \ifbool{solutions}{
+	\renewenvironment{solution}{
+	    \stepcounter{solutionCounter}
+	    \setcounter{subprobStoreCounter}{0}
+	    \newtoggle{subproblemActive}
+	    \newcommand{\exitsubproblems}{%
+		\iftoggle{subproblemActive}{%
+		    \setcounter{subprobStoreCounter}{\value{subproblemCounter}}
+		    \endlist \egroup
+		}{}
+	    }
+	    \newcommand{\subproblem}{%
+		\iftoggle{subproblemActive}
+		    {\exitsubproblems}
+		    {\toggletrue{subproblemActive}}
+		\bgroup
+		\list{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
+			\item %
+		}
+	    \noindent {\bf \maxercises@solutiondescription }
+	    }{%
+	    \iftoggle{subproblemActive}{\endlist \egroup}{}
+	    \par
+	    \addvspace{\baselineskip}
+	    \global\settoggle{lastwassolution}{true}
+	}
+    }{\excludecomment{solution}}
+}
+\updatePSEnvironments
+
+\newcommand{\createtitle}{{%
+	\thispagestyle{plain}
+
+	\noindent \institution{}  \courseiteration \hspace*{\fill}\\
+	\lecturer \hspace*{\fill} \assistant
+
+
+	\vspace {1.2cm}
+
+	\centerline {\LARGE\bf  \coursename}
+	\vspace {0.6cm} \centerline {\Large\bf \maxercises@title}
+	\vspace {0.6cm}
+}}
+
+\newcommand{\remark}{\par \noindent {\em Remark: }}
+\newcommand{\hint}{\par \noindent {\em Hint: }}
+\newcommand{\note}{\par \noindent {\em Note: }}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{\coursename}
+\rhead{\ifbool{exam}{\examname}{\maxercises@title}}
+\lfoot{\ifbool{exam}{\examdate}{\maxercises@lastupdatedtext}}
+\rfoot{{\thepage} / \pageref{LastPage}}
+
+\fancypagestyle{plain}{%
+    \fancyhead{}% Clear header/footer
+    \renewcommand{\headrulewidth}{0pt}%
+}
+

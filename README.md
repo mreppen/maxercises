@@ -68,7 +68,9 @@ Manipulating the display of problems/solutions
 * `\turnOFFsolutions` hides solutions from this point on, regardless of package options.
 
 Page breaks
+* `\newpageifproblems` inserts `\newpage` if problems are not hidden.
 * `\newpageifnoproblems` inserts `\newpage` if problems are hidden.
+* `\newpageifsolutions` inserts `\newpage` if solutions  are not hidden.
 * `\newpageifnosolutions` inserts `\newpage` if solutions  are hidden.
 
 Convenience commands

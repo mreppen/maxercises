@@ -202,13 +202,9 @@
 \updatePSEnvironments
 
 \newcommand{\createtitle}{{%
-	\thispagestyle{plain}
+	\thispagestyle{titlepage}
 
-	\noindent \institution{}  \courseiteration \hspace*{\fill}\\
-	\lecturer \hspace*{\fill} \assistant
-
-
-	\vspace {1.2cm}
+	~\vspace {0.3cm}
 
 	\centerline {\LARGE\bf  \coursename}
 	\vspace {0.6cm} \centerline {\Large\bf \maxercises@title}
@@ -222,7 +218,7 @@
 \pagestyle{fancy}
 \setlength{\headheight}{15pt}
 \fancyhf{}
-\lhead{\coursename}
+\lhead{\coursename{}\notblank{\coursename}{\notblank{\courseiteration}{, }{}}{}\courseiteration}
 \rhead{\ifbool{exam}{\examname}{\maxercises@title}}
 \lfoot{\ifbool{exam}{\examdate}{\maxercises@lastupdatedtext}}
 \rfoot{{\thepage} / \pageref{LastPage}}
@@ -232,3 +228,8 @@
     \renewcommand{\headrulewidth}{0pt}%
 }
 
+\fancypagestyle{titlepage}{%
+    \lhead{\institution{}\notblank{\institution}{\notblank{\courseiteration}{, }{}}{}\courseiteration \break \lecturer}%
+    \rhead{\assistant}
+    \renewcommand{\headrulewidth}{0pt}%
+}

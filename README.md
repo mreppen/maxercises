@@ -12,6 +12,7 @@ The default options are `problemsON` and `solutionsON`.
 * `exam` changes headers and renames "Exercises" to "Problems".
 * `problemsOFF` hides the problems; `problemsON` shows them.
 * `solutionsOFF` hides the solutions; `solutionsON` shows them.
+* `skipnewpage` skips the insertion of a new page when a problem follows a solution.
 
 ### Environments
 This package provides two environments: `problem` and `solution`. These enviroments typeset the problems/exercises and solutions automatically. Subproblems are typeset with the command `\subproblem` (also in the `solution` environment). This works similarly to the enumerate enviroment. To add more general information between two subproblems, the command `\exitsubproblems` can be used.
@@ -69,7 +70,6 @@ Manipulating the display of problems/solutions
 Page breaks
 * `\newpageifnoproblems` inserts `\newpage` if problems are hidden.
 * `\newpageifnosolutions` inserts `\newpage` if solutions  are hidden.
-* `\skipnewpage` skips the insertion of a new page when a problem follows a solution.
 
 Convenience commands
 * `\remark` inserts a typeset "Remark:" text.

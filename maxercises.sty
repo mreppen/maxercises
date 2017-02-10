@@ -15,6 +15,7 @@
 \newbool{problems}
 \newbool{solutions}
 \newbool{exam}
+\newbool{skipnewpage}
 
 \newcommand{\turnONproblems}{\booltrue{problems}\updatePSEnvironments}
 \newcommand{\turnOFFproblems}{\boolfalse{problems}\updatePSEnvironments}
@@ -49,6 +50,10 @@
 	\renewcommand{\examdate}{#1}
     }
     \setbool{exam}{true}
+}
+
+\DeclareOption{skipnewpage}{
+    \setbool{skipnewpage}{true}
 }
 
 \ExecuteOptions{problemsON,solutionsON}
@@ -124,10 +129,12 @@
 
 \newtoggle{lastwassolution}
 
+\newcommand{\newpageif}[1]{\ifbool{#1}{\newpage}{}}
 \newcommand{\newpageifno}[1]{\ifbool{#1}{}{\newpage}}
+\newcommand{\newpageifproblems}{\newpageif{problems}}
 \newcommand{\newpageifnoproblems}{\newpageifno{problems}}
+\newcommand{\newpageifsolutions}{\newpageif{solutions}}
 \newcommand{\newpageifnosolutions}{\newpageifno{solutions}}
-\newcommand{\skipnewpage}{\togglefalse{lastwassolution}}
 
 \newcounter{problemCounter}
 \newcounter{solutionCounter}
@@ -138,7 +145,7 @@
 \newcommand{\updatePSEnvironments}{
     \ifbool{problems}{
 	\renewenvironment{problem}{
-	    \iftoggle{lastwassolution}{\newpage}{}
+	    \notbool{skipnewpage}{\iftoggle{lastwassolution}{\newpage}{}}{}
 	    \stepcounter{problemCounter}
 	    \setcounter{subprobStoreCounter}{0}
 	    \newtoggle{subproblemActive}

@@ -141,13 +141,15 @@
 \newcounter{solutionCounter}
 \newcounter{subprobStoreCounter}
 \newcounter{subproblemCounter}
+\def\theproblemCounter{\maxercises@exercisedescription}
+\def\thesolutionCounter{\maxercises@solutiondescription}
 \def\thesubproblemCounter{(\alph{subproblemCounter})}
 \excludeversion{problem}\excludeversion{solution} % this suppresses error from renewenvironment below
 \newcommand{\updatePSEnvironments}{
     \ifbool{problems}{
 	\renewenvironment{problem}{
 	    \notbool{skipnewpage}{\iftoggle{lastwassolution}{\newpage}{}}{}
-	    \stepcounter{problemCounter}
+	    \refstepcounter{problemCounter}
 	    \setcounter{subprobStoreCounter}{0}
 	    \newtoggle{subproblemActive}
 	    \newcommand{\exitsubproblems}{%
@@ -175,7 +177,7 @@
 
     \ifbool{solutions}{
 	\renewenvironment{solution}{
-	    \stepcounter{solutionCounter}
+	    \refstepcounter{solutionCounter}
 	    \setcounter{subprobStoreCounter}{0}
 	    \newtoggle{subproblemActive}
 	    \newcommand{\exitsubproblems}{%

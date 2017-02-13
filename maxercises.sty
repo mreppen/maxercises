@@ -165,6 +165,8 @@
 		\begin{list}{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
 			\item %
 		}
+	    \par
+	    \addvspace{\baselineskip}
 	    \noindent {\bf \maxercises@exercisedescription }
 	    }{%
 	    \iftoggle{subproblemActive}{\exitsubproblems}{}
@@ -193,6 +195,8 @@
 		\begin{list}{(\alph{subproblemCounter})}{\usecounter{subproblemCounter}\setcounter{subproblemCounter}{\value{subprobStoreCounter}}\def\makelabel{\hss\llap{}}}
 			\item %
 		}
+	    \par
+	    \addvspace{\baselineskip}
 	    \noindent {\bf \maxercises@solutiondescription }
 	    }{%
 	    \iftoggle{subproblemActive}{\exitsubproblems}{}
@@ -212,6 +216,8 @@
 	\centerline {\LARGE\bf  \coursename}
 	\vspace {0.6cm} \centerline {\Large\bf \maxercises@title}
 	\vspace {0.6cm}
+
+	\noindent\ignorespaces
 }}
 
 \newcommand{\remark}{\par \noindent {\em Remark: }}

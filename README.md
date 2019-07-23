@@ -5,6 +5,9 @@ The intention is to keep it small, but not minimal. It imports a handful of othe
 
 There is no promise of backward compatibility, so store a copy of the `.sty` file with each project.
 
+## Example
+A small example is provided in `example.tex`. Running `makedocs.sh` yields the three documents [`example.pdf`](example.pdf), [`exercises.pdf`](exercises.pdf), and [`solutions.pdf`](solutions.pdf).
+
 ## Usage
 
 ### Options

@@ -73,6 +73,10 @@ Page breaks
 * `\newpageifsolutions` inserts `\newpage` if solutions  are not hidden.
 * `\newpageifnosolutions` inserts `\newpage` if solutions  are hidden.
 
+Conditional code
+* `\doifproblems{code}` evaluates `code` only if problems are not hidden.
+* `\doifsolutions{code}` evaluates `code` only if solutions are not hidden.
+
 Convenience commands
 * `\remark` inserts a typeset "Remark:" text.
 * `\note` inserts a typeset "Note:" text.

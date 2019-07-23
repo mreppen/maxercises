@@ -130,6 +130,9 @@
 
 \newtoggle{lastwassolution}
 
+\newcommand{\doifproblems}[1]{\ifbool{problems}{#1}{}}
+\newcommand{\doifsolutions}[1]{\ifbool{solutions}{#1}{}}
+
 \newcommand{\newpageif}[1]{\ifbool{#1}{\newpage}{}}
 \newcommand{\newpageifno}[1]{\ifbool{#1}{}{\newpage}}
 \newcommand{\newpageifproblems}{\newpageif{problems}}

@@ -3,7 +3,7 @@ This is an ad-hoc created package for simplifying the process of creating exerci
 
 The intention is to keep it small, but not minimal. It imports a handful of other packages which the author considers a reasonable starting point.
 
-There is no promise of backward compability, so store a copy of the `.sty` file with each project.
+There is no promise of backward compatibility, so store a copy of the `.sty` file with each project.
 
 ## Usage
 
@@ -15,7 +15,7 @@ The default options are `problemsON` and `solutionsON`.
 * `skipnewpage` skips the insertion of a new page when a problem follows a solution.
 
 ### Environments
-This package provides two environments: `problem` and `solution`. These enviroments typeset the problems/exercises and solutions automatically. Subproblems are typeset with the command `\subproblem` (also in the `solution` environment). This works similarly to the enumerate enviroment. To add more general information between two subproblems, the command `\exitsubproblems` can be used.
+This package provides two environments: `problem` and `solution`. These environments typeset the problems/exercises and solutions automatically. Subproblems are typeset with the command `\subproblem` (also in the `solution` environment). This works similarly to the enumerate environment. To add more general information between two subproblems, the command `\exitsubproblems` can be used.
 
 Example:
 ```

@@ -5,10 +5,11 @@ The intention is to keep it small, but not minimal. It imports a handful of othe
 
 There is no promise of backward compatibility, so store a copy of the `.sty` file with each project.
 
-## Example
-A small example is provided in `example.tex`. Running `makedocs.sh` yields the three documents [`example.pdf`](example/example.pdf), [`exercises.pdf`](example/exercises.pdf), and [`solutions.pdf`](example/solutions.pdf).
-
 ## Usage
+Copy `maxercises.sty` and `makedocs.sh` into your project directory. The script generates three pdfs with exercises, solutions, and both.
+
+### Example
+A small example is provided in [`example.tex`](example/example.tex). Running `makedocs.sh` yields the three documents [`example.pdf`](example/example.pdf), [`exercises.pdf`](example/exercises.pdf), and [`solutions.pdf`](example/solutions.pdf).
 
 ### Options
 The default options are `problemsON` and `solutionsON`.
@@ -46,7 +47,7 @@ Additional general details.
 ### Commands
 * `\createtitle` creates a title and header/footer based on the information provided by the commands below.
 
-Setting iformation:
+Setting information:
 * `\setcoursename{value}` sets the name of the course.
 * `\setcourseiteration{value}` sets the current iteration of the course (e.g., Spring 2017).
 * `\setlecturer{value}` sets the name of the professor/lecturer of the course.
